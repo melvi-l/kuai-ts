@@ -1,31 +1,18 @@
-export type HTMLTag = keyof HTMLElementTagNameMap;
-type VNodeType = HTMLTag | string;
-type VNodeProps = {} & Record<string, any>;
-type VNodeText = {
-    type: "__text";
-    props: {
-        value: string;
-    };
-    children: [];
-};
-type VNodeElement = {
-    type: VNodeType;
-    props: VNodeProps;
-    children: Array<VNode>;
-};
-export type VNode = VNodeText | VNodeElement;
+import type { VNode, VNodeDom, VNodeProps, VNodeType } from "./vnode";
 
 export function h(
-    type: VNodeType,
-    props?: VNodeProps,
-    children?: Array<VNode | string>,
+  type: VNodeType,
+  props?: VNodeProps,
+  children?: Array<VNode | string>,
+  dom?: VNodeDom,
 ): VNode {
-    return {
-        type,
-        props: props ?? {},
-        children:
-            children?.map((child) =>
-                typeof child === "string" ? h("__text", { value: child }) : child,
-            ) ?? [],
-    };
+  return {
+    type,
+    props: props ?? {},
+    children:
+      children?.map((child) =>
+        typeof child === "string" ? h("__text", { nodeValue: child }) : child,
+      ) ?? [],
+    dom,
+  };
 }
