@@ -7,7 +7,7 @@ export function patch(oldVNode: VNode | Element, newVNode: VNode) {
     oldVNode = emptyElement(oldVNode);
     console.log(oldVNode);
   }
-  if (oldVNode === newVNode) {
+  if (oldVNode.type === newVNode.type) {
     patchVNode(oldVNode, newVNode);
     return;
   } else {
@@ -58,8 +58,13 @@ function updateChildren(
   while (oldI < oldChildren.length && newI < newChildren.length) {
     const oldVNode = oldChildren[oldI];
     const newVNode = newChildren[oldI];
-    if (oldVNode === newVNode) {
+    if (oldVNode.type === newVNode.type) {
       // if same reference, same VNode but maybe with changed props => UPDATE
+      console.log(
+        "update",
+        newVNode.type === "__text" ? newVNode.props.nodeValue : newVNode.type,
+      );
+
       patchVNode(oldVNode, newVNode);
       oldI++;
       newI++;
@@ -67,13 +72,23 @@ function updateChildren(
     }
     if (newVNode.dom) {
       // if different but then new node have been created => DELETION
+      console.log(
+        "deletion",
+        oldVNode.type === "__text" ? oldVNode.props.nodeValue : oldVNode.type,
+      );
+
       dom.removeChild(oldVNode.dom!);
       oldI++;
       continue;
     }
     // if different witout new node already created => ADDITION
+    console.log(
+      "addition",
+      newVNode.type === "__text" ? newVNode.props.nodeValue : newVNode.type,
+    );
+
     createDom(newVNode);
-    dom.insertBefore(oldVNode.dom!, newVNode.dom!);
+    dom.insertBefore(newVNode.dom!, oldVNode.dom!);
     newI++;
   }
   while (oldI < oldChildren.length) {
