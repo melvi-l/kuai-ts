@@ -10,7 +10,7 @@ export function isText(node: Node) {
 export function createDom(vnode: VNode): Node {
   const dom =
     vnode.type === "__text"
-      ? document.createTextNode("")
+      ? document.createTextNode(vnode.props.nodeValue ?? "")
       : document.createElement(vnode.type);
 
   updateDom(dom, {}, vnode.props);
