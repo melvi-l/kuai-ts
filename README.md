@@ -1,4 +1,6 @@
-![NPM Version](https://img.shields.io/npm/v/kuai-ts?labelColor=%23F1F1F1&color=%23CC3534)
+[![NPM Version](https://img.shields.io/npm/v/kuai-ts?labelColor=%23f1f1f1&color=%23CC3534)](https://www.npmjs.com/package/kuai-ts)
+
+
 
 # Kuai 
 > *Vibe code then edited README*
