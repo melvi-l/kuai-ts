@@ -1,3 +1,4 @@
+// vibe coded
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { createDom, updateDom } from "../dom";
 import { h } from "../h";
@@ -93,7 +94,6 @@ describe("createDom", () => {
     expect(el.querySelector("strong")?.textContent).toBe("test");
     expect(el.querySelector("p")?.textContent).toBe("This is a test.");
   });
-  
 });
 
 beforeEach(() => {
