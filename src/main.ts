@@ -2,4 +2,4 @@ export { h } from "./h";
 export { patch } from "./patch";
 export { createDom, updateDom } from "./dom";
 
-export type * from "./vnode"
+export type { VNode, VNodeProps, VNodeDom, VNodeType } from "./vnode";
