@@ -45,7 +45,7 @@ export function updateDom(
   if ("style" in prevProps && prevProps.style != null && "style" in dom) {
     Object.keys(prevProps.style)
       .filter(isGone("style" in props ? props.style : {}))
-      .forEach((key) => (dom as HTMLElement).style.setProperty(key, ""));
+      .forEach((key) => (((dom as HTMLElement).style as any)[key] = "")); // I hate ts
   }
 
   if ("class" in prevProps && prevProps.class != null && "classList" in dom) {
@@ -78,12 +78,12 @@ export function updateDom(
   ) {
     Object.keys(props.style)
       .filter(isNew("style" in prevProps ? prevProps.style : {}, props.style))
-      .forEach((key) =>
-        (dom as HTMLElement).style.setProperty(
-          key,
-          (props.style as Record<string, string>)[key] ?? "",
-        ),
-      );
+      .forEach(
+        (key) =>
+          (((dom as HTMLElement).style as any)[key] = (props.style as any)[
+            key
+          ]),
+      ); // I hate ts
   }
   Object.keys(props)
     .filter(isEventHandler)
