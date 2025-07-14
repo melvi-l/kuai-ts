@@ -3,9 +3,6 @@ import type { VNode, VNodeDom, VNodeProps } from "./vnode";
 export function isElement(node: any): node is Element {
   return node.nodeType === 1;
 }
-export function isText(node: Node) {
-  return node.nodeType === 3;
-}
 
 export function createDom(vnode: VNode): Node {
   const dom =
@@ -15,9 +12,7 @@ export function createDom(vnode: VNode): Node {
 
   updateDom(dom, {}, vnode.props);
 
-  vnode.children.forEach((child) => {
-    dom.appendChild(createDom(child));
-  });
+  vnode.children.forEach((child) => dom.appendChild(createDom(child)));
 
   vnode.dom = dom;
   return dom;
@@ -50,7 +45,7 @@ export function updateDom(
   if ("style" in prevProps && prevProps.style != null && "style" in dom) {
     Object.keys(prevProps.style)
       .filter(isGone("style" in props ? props.style : {}))
-      .forEach((key) => (dom.style[key] = ""));
+      .forEach((key) => (dom as HTMLElement).style.setProperty(key, ""));
   }
 
   if ("class" in prevProps && prevProps.class != null && "classList" in dom) {
@@ -61,14 +56,11 @@ export function updateDom(
 
   Object.keys(prevProps)
     .filter(isGone(props))
-    .forEach((key) => (dom[key] = ""));
+    .forEach((key) => ((dom as any)[key] = ""));
 
   Object.keys(props)
     .filter(isNew(prevProps, props))
-    .forEach((key) => {
-      console.log(key, props[key]);
-      return (dom[key] = props[key]);
-    });
+    .forEach((key) => ((dom as any)[key] = props[key]));
 
   if ("class" in props && props.class != null && "classList" in dom) {
     const classObj = props.class;
@@ -86,19 +78,22 @@ export function updateDom(
   ) {
     Object.keys(props.style)
       .filter(isNew("style" in prevProps ? prevProps.style : {}, props.style))
-      .forEach((key) => (dom.style[key] = (props.style ?? {})[key]));
+      .forEach((key) =>
+        (dom as HTMLElement).style.setProperty(
+          key,
+          (props.style as Record<string, string>)[key] ?? "",
+        ),
+      );
   }
   Object.keys(props)
     .filter(isEventHandler)
     .filter(isNew(prevProps, props))
-    .forEach((key) => {
-      console.log("addEventListener", key, prevProps[key]);
-
-      return dom.addEventListener(
+    .forEach((key) =>
+      dom.addEventListener(
         key.toLowerCase().substring(2) as keyof HTMLElementEventMap,
         props[key] as EventListenerOrEventListenerObject,
-      );
-    });
+      ),
+    );
 
   return dom;
 }
