@@ -29,6 +29,7 @@ npm install kuai-ts
 - Recursive DOM patching algorithm
 - Prop diffing: styles, classes, attributes
 - Synthetic event handling (`onClick`, etc.)
+- `ref` props to trigger callback on dom mount
 
 ---
 
@@ -86,7 +87,7 @@ It supports:
 
 - Text nodes via `type === "__text"`
 - Nested children arrays
-- Props: `class`, `style`, `onEvent`, and DOM attributes
+- Props: `class`, `style`, `onEvent`, `ref`, and DOM attributes
 
 ---
 
@@ -96,10 +97,10 @@ It supports:
 - Applies props, events, classes, styles
 - Recursively renders children
 
-```ts
+````ts
 const el = createDom(vnode);
 parent.appendChild(el);
-```
+``s
 
 ---
 
@@ -125,7 +126,7 @@ The `patch()` function orchestrates the rendering lifecycle:
 
 ```ts
 patch(oldVNodeOrElement, newVNode);
-```
+````
 
 ---
 
@@ -185,7 +186,7 @@ If you want to contribute to a like-minded but aim for release repository, I hig
 
 ---
 
-## 📜 License
+## License
 
 GLWT - Good Luck With That
 
