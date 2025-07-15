@@ -1,6 +1,6 @@
 {
   "name": "kuai-ts",
-  "version": "0.2.0-dev",
+  "version": "0.2.1-dev",
   "type": "module",
   "exports": {
     ".": {
@@ -10,6 +10,11 @@
     },
     "./type": "./dist/type.d.ts"
   },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && rollup -c",
