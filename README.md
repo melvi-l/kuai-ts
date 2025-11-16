@@ -2,8 +2,6 @@
 
 # Kuai
 
-> _Vibe code then edited README_
-
 Kuai is a lightweight (because I am way to lazy for more), declarative (gave up on support JSX tho) Virtual DOM (Fiber tree look scary) renderer written in TypeScript.  
 It provides a minimal core for creating, diffing, and rendering virtual nodes to the DOM.
 
@@ -130,7 +128,7 @@ patch(oldVNodeOrElement, newVNode);
 
 ---
 
-## 🧪 Testing
+## Testing
 
 The project uses [Vitest](https://vitest.dev) for unit testing and coverage.
 
