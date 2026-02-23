@@ -95,10 +95,10 @@ It supports:
 - Applies props, events, classes, styles
 - Recursively renders children
 
-````ts
+```ts
 const el = createDom(vnode);
 parent.appendChild(el);
-``s
+```
 
 ---
 
